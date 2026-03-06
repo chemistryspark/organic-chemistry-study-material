@@ -27,3 +27,10 @@ Official Website:
 https://sudhirnama.in
 
 
+
+Organic Reactions Guide:
+organic-reactions.md
+
+Electrochemistry Notes:
+electrochemistry.md
+
