@@ -2,273 +2,421 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-
-<meta charset="UTF-8">
-<meta name="viewport" content="width=device-width,initial-scale=1">
-
+<meta charset="utf-8" />
+<meta name="viewport" content="width=device-width,initial-scale=1" />
 <title>Chemistry Spark | Free Chemistry Study Material</title>
-
-<meta name="description" content="Free chemistry notes for NEET, IIT-JEE, MSc entrance exams by Sudhir Nama.">
-
+<meta name="description" content="Free chemistry notes for NEET, IIT-JEE, MSc entrance exams by Sudhir Nama." />
 <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;600&display=swap" rel="stylesheet">
-
 <script src="https://cdn.jsdelivr.net/npm/marked/marked.min.js"></script>
 
 <style>
-
-*{
-margin:0;
-padding:0;
-box-sizing:border-box;
-font-family:Poppins;
-}
-
+/* -------------------------
+   Base / layout
+   -------------------------*/
+*{box-sizing:border-box;margin:0;padding:0;font-family:'Poppins',sans-serif}
+html,body{height:100%}
 body{
-background:linear-gradient(120deg,#0f2027,#203a43,#2c5364);
-color:white;
-min-height:100vh;
+  min-height:100vh;
+  color:#eef6fb;
+  background:linear-gradient(120deg,#0f2027 0%, #203a43 45%, #2c5364 100%);
+  -webkit-font-smoothing:antialiased;
+  -moz-osx-font-smoothing:grayscale;
 }
 
+/* -------------------------
+   NAVBAR (responsive)
+   -------------------------*/
 nav{
-position:sticky;
-top:0;
-display:flex;
-justify-content:space-between;
-align-items:center;
-padding:15px 25px;
-background:rgba(255,255,255,0.1);
-backdrop-filter:blur(12px);
-z-index:999;
+  position:sticky;
+  top:0;
+  z-index:999;
+  display:flex;
+  gap:12px;
+  align-items:center;
+  justify-content:space-between;
+  padding:14px 18px;
+  background:rgba(255,255,255,0.06);
+  backdrop-filter:blur(12px);
+  border-bottom:1px solid rgba(255,255,255,0.03);
 }
 
+/* left block holds logo/title */
+.nav-left{display:flex;align-items:center;gap:12px;min-width:0}
 .logo{
-font-weight:600;
-font-size:20px;
+  display:flex;align-items:center;gap:10px;text-decoration:none;color:inherit;
+  font-weight:700;font-size:18px;
+}
+.logo .icon{
+  width:36px;height:36px;border-radius:10px;
+  display:inline-flex;align-items:center;justify-content:center;
+  background:linear-gradient(135deg,#44c3ff,#2aa4d8);
+  color:#072029;font-weight:700;font-size:18px;
+  box-shadow:0 6px 18px rgba(0,0,0,0.25);
 }
 
+/* search area: flexible */
+.nav-right{
+  display:flex;
+  align-items:center;
+  gap:12px;
+  min-width:0;
+  flex:1;
+  justify-content:flex-end;
+}
+
+/* search input */
 .search{
-padding:7px 12px;
-border-radius:20px;
-border:none;
-outline:none;
+  width:100%;
+  max-width:560px;
+  min-width:120px;
+  padding:10px 14px;
+  border-radius:999px;
+  border:0;
+  outline:none;
+  box-shadow:0 6px 20px rgba(6,20,28,0.25) inset;
+  background:rgba(255,255,255,0.06);
+  color:inherit;
+  font-size:14px;
 }
 
-.toggle{
-cursor:pointer;
-font-size:18px;
+/* small search icon inside input (handled by placeholder) */
+.search::placeholder{color:rgba(238,246,251,0.65)}
+
+/* theme toggle (keeps small) */
+.toggle-btn{
+  display:inline-flex;align-items:center;justify-content:center;
+  width:36px;height:36px;border-radius:10px;background:rgba(255,255,255,0.04);
+  cursor:pointer;color:#cfeffb;font-size:16px;border:0;
 }
 
+/* -------------------------
+   Hero
+   -------------------------*/
 .hero{
-text-align:center;
-padding:60px 20px;
+  max-width:1100px;margin:28px auto 8px;padding:30px 18px 10px;
 }
-
 .hero h1{
-font-size:36px;
-margin-bottom:10px;
+  font-size:34px;line-height:1.05;margin-bottom:8px;
+  font-weight:700;color:#f6fbff;
+}
+.hero p{opacity:0.9;color:#e8f6fb}
+
+/* -------------------------
+   Filters
+   -------------------------*/
+.controls{max-width:1100px;margin:10px auto 18px;padding:0 18px;display:flex;gap:10px;flex-wrap:wrap;}
+.filter-btn{
+  padding:8px 12px;border-radius:999px;border:0;background:rgba(255,255,255,0.06);color:inherit;cursor:pointer;
+}
+.filter-btn.active{background:linear-gradient(90deg,#3fb9ff,#66d5ff);color:#05232b;}
+
+/* -------------------------
+   Card grid
+   -------------------------*/
+.grid{
+  max-width:1100px;margin:0 auto;padding:18px;display:grid;
+  grid-template-columns:repeat(auto-fit,minmax(260px,1fr));
+  gap:18px;
 }
 
-.container{
-max-width:1100px;
-margin:auto;
-padding:20px;
-display:grid;
-grid-template-columns:repeat(auto-fit,minmax(250px,1fr));
-gap:20px;
-}
-
+/* card style */
 .card{
-background:rgba(255,255,255,0.1);
-border-radius:15px;
-padding:20px;
-backdrop-filter:blur(10px);
-transition:0.3s;
+  background:linear-gradient(180deg, rgba(255,255,255,0.03), rgba(255,255,255,0.02));
+  border-radius:16px;padding:18px;backdrop-filter:blur(10px);border:1px solid rgba(255,255,255,0.04);
+  transition:transform .25s ease,box-shadow .25s ease;
+}
+.card:hover{transform:translateY(-6px);box-shadow:0 12px 30px rgba(6,20,28,0.45)}
+.card h3{font-size:18px;margin-bottom:8px}
+.card p{opacity:0.9;font-size:14px}
+.open-btn{
+  margin-top:12px;display:inline-block;padding:9px 16px;border-radius:999px;background:linear-gradient(90deg,#4db8ff,#2aa4d8);
+  color:#04232b;text-decoration:none;font-weight:600;
 }
 
-.card:hover{
-transform:translateY(-6px);
-box-shadow:0 10px 25px rgba(0,0,0,0.4);
+/* -------------------------
+   Article page (content)
+   -------------------------*/
+.article-wrap{
+  max-width:920px;margin:28px auto;padding:20px;display:none;
 }
-
-.card h3{
-margin-bottom:10px;
+.article{
+  background:linear-gradient(180deg, rgba(255,255,255,0.03), rgba(255,255,255,0.02));
+  padding:26px;border-radius:14px;backdrop-filter:blur(8px);border:1px solid rgba(255,255,255,0.04);
+  color:inherit;
 }
+.article h1{font-size:28px;margin-bottom:10px}
+.article h2{font-size:20px;margin-top:18px}
+.article p{line-height:1.7;margin:10px 0}
+.article img{max-width:100%;height:auto;border-radius:8px}
+.article a{color:#81d4ff;word-break:break-all}
+.article pre, .article code{background:rgba(0,0,0,0.25);padding:10px;border-radius:8px;overflow:auto}
+.article blockquote{border-left:3px solid rgba(255,255,255,0.08);padding-left:12px;color:#cfeffb}
 
-.btn{
-display:inline-block;
-margin-top:10px;
-padding:7px 14px;
-border-radius:20px;
-background:#3fb9ff;
-color:white;
-text-decoration:none;
+/* ensure long words/wide urls wrap */
+.article, .article *{word-break:break-word;overflow-wrap:anywhere}
+
+/* back button */
+.back-btn{display:inline-block;margin-bottom:12px;padding:8px 12px;border-radius:10px;background:rgba(255,255,255,0.04);text-decoration:none;color:inherit}
+
+/* -------------------------
+   Footer
+   -------------------------*/
+footer{max-width:1100px;margin:40px auto;padding:18px;color:rgba(235,246,251,0.85);text-align:center;font-size:14px}
+
+/* -------------------------
+   Responsive tweaks
+   -------------------------*/
+@media (max-width:820px){
+  .hero h1{font-size:30px}
+  nav{padding:12px 14px}
+  .search{max-width:340px}
 }
-
-.article-page{
-max-width:900px;
-margin:40px auto;
-padding:25px;
-background:rgba(255,255,255,0.08);
-border-radius:15px;
-display:none;
+@media (max-width:640px){
+  nav{flex-wrap:wrap;gap:8px;padding:10px}
+  .nav-left{order:1}
+  .nav-right{order:3;width:100%;justify-content:flex-end}
+  .search{order:2;width:100%;max-width:100%}
+  .hero{padding:18px 14px}
+  .hero h1{font-size:26px}
+  .grid{padding:10px}
+  .article-wrap{padding:14px;margin:14px}
+  .card{padding:16px}
 }
-
-.article-page a{
-color:#4db8ff;
+/* very small phones */
+@media (max-width:420px){
+  .logo{font-size:16px}
+  .card h3{font-size:16px}
+  .open-btn{padding:8px 12px;font-size:14px}
 }
-
-footer{
-margin-top:60px;
-padding:25px;
-text-align:center;
-background:rgba(255,255,255,0.05);
-}
-
-.dark{
-background:#0e1117;
-}
-
 </style>
-
-<script type="application/ld+json">
-{
-"@context":"https://schema.org",
-"@type":"Person",
-"name":"Sudhir Nama",
-"url":"https://sudhirnama.in",
-"jobTitle":"Chemistry Author and Educator"
-}
-</script>
-
 </head>
-
 <body>
 
+<!-- NAVBAR -->
 <nav>
+  <div class="nav-left" style="min-width:0">
+    <!-- clickable logo: goes to home (base) -->
+    <a class="logo" href="./" aria-label="Chemistry Spark Home">
+      <span class="icon" aria-hidden>⚗</span>
+      <span style="line-height:1">Chemistry&nbsp;Spark</span>
+    </a>
+  </div>
 
-<div class="logo">⚗ Chemistry Spark</div>
-
-<input class="search" id="search" placeholder="Search topic">
-
-<div class="toggle" onclick="toggleMode()">🌙</div>
-
+  <div class="nav-right" style="min-width:0;flex:1;justify-content:flex-end">
+    <!-- search input (responsive) -->
+    <input id="search" class="search" type="search" placeholder="Search topic or keywords (press Enter)" aria-label="Search topics">
+    <button class="toggle-btn" id="themeToggle" title="Toggle theme">🌙</button>
+  </div>
 </nav>
 
-<section class="hero">
-
-<h1>Free Chemistry Study Material</h1>
-
-<p>NEET • IIT-JEE • MSc Entrance</p>
-
+<!-- HERO -->
+<section class="hero" role="banner" aria-label="Introduction">
+  <div style="max-width:1100px;margin:auto;padding:0 18px">
+    <h1>Free Chemistry Study Material</h1>
+    <p>NEET • IIT-JEE • MSc Entrance</p>
+  </div>
 </section>
 
-<div id="articles" class="container"></div>
-
-<div id="articlePage" class="article-page">
-
-<h1 id="articleTitle"></h1>
-
-<div id="content"></div>
-
+<!-- filters -->
+<div class="controls" aria-hidden="false">
+  <button class="filter-btn active" data-topic="all" onclick="filterTopic('all')">All</button>
+  <button class="filter-btn" data-topic="organic" onclick="filterTopic('organic')">Organic</button>
+  <button class="filter-btn" data-topic="physical" onclick="filterTopic('physical')">Physical</button>
 </div>
 
+<!-- dynamic article cards (auto) -->
+<section id="grid" class="grid" aria-live="polite" role="region" aria-label="Articles"></section>
+
+<!-- article view (hidden by default) -->
+<section id="articleWrap" class="article-wrap" aria-live="polite" role="main">
+  <a id="backBtn" href="./" class="back-btn" onclick="goHome();return false;">← Back to library</a>
+  <article id="article" class="article" itemscope itemtype="https://schema.org/Article">
+    <h1 id="articleTitle" itemprop="headline"></h1>
+    <div id="articleContent" itemprop="articleBody"></div>
+  </article>
+</section>
+
 <footer>
-
-<p><strong>Sudhir Nama</strong></p>
-
-<p>Founder – Chemistry Spark</p>
-
-<p><a href="https://sudhirnama.in" style="color:#4db8ff;">Official Website</a></p>
-
+  <p><strong>Sudhir Nama</strong> — Founder, Chemistry Spark</p>
+  <p><a href="https://sudhirnama.in" style="color:#81d4ff">https://sudhirnama.in</a></p>
 </footer>
 
 <script>
+/*
+  Version 4.1 — Responsive fixes + proper article layout
+  - Auto-loads all .md files in repo (via GitHub API)
+  - Search, filter and article viewer
+  - Header/logo clickable (href="./")
+  - Mobile-friendly search placement (CSS handles layout)
+  - Long URL / long-text wrapping fixes
+*/
 
-const repo="chemistryspark/organic-chemistry-study-material"
+/* ---------- configure repo ---------- */
+/* Replace the repo string below with your GitHub repo "owner/repo" if different */
+const GITHUB_REPO = 'chemistryspark/organic-chemistry-study-material';
 
-async function loadArticles(){
-
-const url=`https://api.github.com/repos/${repo}/contents/`
-
-const res=await fetch(url)
-
-const data=await res.json()
-
-const container=document.getElementById("articles")
-
-data.forEach(file=>{
-
-if(file.name.endsWith(".md")){
-
-const name=file.name.replace(".md","")
-
-const card=document.createElement("div")
-
-card.className="card"
-
-card.innerHTML=`
-
-<h3>🧪 ${name.replace(/-/g," ")}</h3>
-
-<p>Chemistry study article</p>
-
-<a class="btn" href="?article=${name}">Open</a>
-
-`
-
-container.appendChild(card)
-
+/* ---------- helpers ---------- */
+function el(tag, props = {}, children = []) {
+  const n = document.createElement(tag);
+  Object.entries(props).forEach(([k,v]) => {
+    if(k === 'class') n.className = v;
+    else if(k === 'html') n.innerHTML = v;
+    else n.setAttribute(k, v);
+  });
+  children.forEach(c => n.appendChild(typeof c === 'string' ? document.createTextNode(c) : c));
+  return n;
 }
 
-})
-
+/* ---------- load articles from GitHub API ---------- */
+async function loadRepoFiles(){
+  try{
+    const resp = await fetch(`https://api.github.com/repos/${GITHUB_REPO}/contents/`);
+    if(!resp.ok) throw new Error(`GitHub API error ${resp.status}`);
+    const files = await resp.json();
+    const markdownFiles = files.filter(f => f.name.toLowerCase().endsWith('.md'));
+    renderCards(markdownFiles);
+  } catch(err){
+    // fallback: show a few manual cards if API fails
+    console.warn('GitHub API failed:', err);
+    const fallback = [
+      {name:'README.md', download_url:'README.md'},
+      {name:'chemical-kinetics.md', download_url:'chemical-kinetics.md'},
+      {name:'electrochemistry.md', download_url:'electrochemistry.md'},
+      {name:'organic-reactions.md', download_url:'organic-reactions.md'},
+      {name:'pericyclic-reactions.md', download_url:'pericyclic-reactions.md'}
+    ];
+    renderCards(fallback);
+  }
 }
 
-loadArticles()
-
-const params=new URLSearchParams(window.location.search)
-
-const article=params.get("article")
-
-if(article){
-
-document.getElementById("articles").style.display="none"
-
-document.getElementById("articlePage").style.display="block"
-
-document.getElementById("articleTitle").innerText=article.replace(/-/g," ")
-
-fetch(article+".md")
-
-.then(res=>res.text())
-
-.then(text=>{
-
-document.getElementById("content").innerHTML=marked.parse(text)
-
-})
-
+/* ---------- render card elements ---------- */
+function renderCards(files){
+  const grid = document.getElementById('grid');
+  grid.innerHTML = '';
+  files.forEach(file => {
+    const base = file.name.replace(/\.md$/i,'');
+    const title = base.replace(/-/g,' ');
+    const topic = detectTopicFromName(base);
+    const card = el('div',{class:'card','data-topic':topic});
+    const h = el('h3',{},[document.createTextNode(`🧪 ${title}`)]);
+    const p = el('p',{},[document.createTextNode('Chemistry study article')]);
+    const a = el('a',{class:'open-btn',href:`?article=${base}`},[document.createTextNode('Open')]);
+    // open via JS to avoid full reload where possible
+    a.addEventListener('click', (e)=>{
+      e.preventDefault();
+      openArticle(base);
+      history.pushState({article:base}, '', `?article=${base}`);
+    });
+    card.append(h,p,a);
+    grid.appendChild(card);
+  });
+  // apply any current search filter
+  applySearchFilter();
 }
 
-document.getElementById("search").addEventListener("keyup",function(){
-
-let filter=this.value.toLowerCase()
-
-document.querySelectorAll(".card").forEach(card=>{
-
-card.style.display=card.innerText.toLowerCase().includes(filter)?"block":"none"
-
-})
-
-})
-
-function toggleMode(){
-
-document.body.classList.toggle("dark")
-
+/* small heuristic to determine a topic category */
+function detectTopicFromName(name){
+  const n = name.toLowerCase();
+  if(n.includes('organic')||n.includes('pericyclic')||n.includes('reactions')) return 'organic';
+  if(n.includes('kinetic')||n.includes('electro')||n.includes('thermo')||n.includes('physical')) return 'physical';
+  return 'general';
 }
+
+/* ---------- search and filter ---------- */
+const searchInput = document.getElementById('search');
+searchInput.addEventListener('input', applySearchFilter);
+
+function applySearchFilter(){
+  const q = searchInput.value.trim().toLowerCase();
+  document.querySelectorAll('.grid .card').forEach(card=>{
+    const text = card.innerText.toLowerCase();
+    card.style.display = text.includes(q) ? 'block' : 'none';
+  });
+}
+
+/* filter buttons */
+function filterTopic(topic){
+  document.querySelectorAll('.filter-btn').forEach(b=>b.classList.remove('active'));
+  document.querySelectorAll(`.filter-btn[data-topic="${topic}"]`).forEach(b=>b.classList.add('active'));
+  document.querySelectorAll('.grid .card').forEach(card=>{
+    if(topic === 'all') card.style.display = 'block';
+    else card.style.display = (card.dataset.topic === topic) ? 'block' : 'none';
+  });
+}
+
+/* ---------- article viewer ---------- */
+const articleWrap = document.getElementById('articleWrap');
+const articleTitle = document.getElementById('articleTitle');
+const articleContent = document.getElementById('articleContent');
+
+async function openArticle(name){
+  // show viewer
+  document.getElementById('grid').style.display = 'none';
+  articleWrap.style.display = 'block';
+  articleTitle.textContent = name.replace(/-/g,' ');
+  articleContent.innerHTML = '<p style="opacity:0.7">Loading article…</p>';
+  // fetch raw md — prefer local file (download_url) else try /repo/contents path
+  try{
+    // try to fetch raw via relative path (works when files are in same repo root on GH Pages)
+    let url = `${name}.md`;
+    let res = await fetch(url);
+    if(!res.ok){
+      // fallback to GitHub API content URL
+      const api = `https://raw.githubusercontent.com/${GITHUB_REPO}/main/${name}.md`;
+      res = await fetch(api);
+    }
+    if(!res.ok) throw new Error('Article not found');
+    const txt = await res.text();
+    // convert markdown -> html using marked
+    articleContent.innerHTML = marked.parse(txt);
+    // ensure any in-article links open in new tab (and are safe)
+    articleContent.querySelectorAll('a').forEach(a=>{
+      a.setAttribute('target','_blank');
+      a.setAttribute('rel','noopener noreferrer');
+    });
+    // scroll to top of article
+    window.scrollTo({top:0,behavior:'smooth'});
+  } catch(err){
+    articleContent.innerHTML = `<p style="color:#ffdede">Failed to load article: ${err.message}</p>`;
+  }
+}
+
+/* go home/back */
+function goHome(){
+  articleWrap.style.display = 'none';
+  document.getElementById('grid').style.display = '';
+  history.pushState({}, '', './');
+}
+
+/* handle back/forward browser navigation */
+window.addEventListener('popstate', (ev)=>{
+  const state = ev.state || {};
+  if(state.article){
+    openArticle(state.article);
+  } else {
+    goHome();
+  }
+});
+
+/* theme toggle (simple) */
+const themeToggle = document.getElementById('themeToggle');
+themeToggle.addEventListener('click', ()=>{
+  document.body.classList.toggle('dark');
+  themeToggle.textContent = document.body.classList.contains('dark') ? '☀️' : '🌙';
+});
+
+/* ---------- on load: build UI and show article if ?article=... ---------- */
+(async function init(){
+  await loadRepoFiles();
+  // if URL has ?article=... open it
+  const params = new URLSearchParams(location.search);
+  const art = params.get('article');
+  if(art){
+    openArticle(art);
+    history.replaceState({article:art}, '', `?article=${art}`);
+  }
+})();
 
 </script>
-
 </body>
 </html>
