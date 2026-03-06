@@ -1,6 +1,6 @@
 # Organic Reactions Guide
 
-Important reactions for NEET,IIT-JEE, BHU, IIT-JAM, GATE, CSIR-NET, BITSAT, RPSC Assistant Professor, RPSC School Lecturer, RPSC 1st Grade.
+Important reactions for NEET, IIT-JEE, BHU, IIT-JAM, GATE, CSIR-NET, BITSAT, RPSC Assistant Professor, RPSC School Lecturer, RPSC 1st Grade.
 
 Detailed notes available here:
 
